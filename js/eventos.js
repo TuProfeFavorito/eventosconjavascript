@@ -13,7 +13,7 @@ setTimeout(function(){
 
 //arrays de presidentes del peru desde FUJIMORI
 
-const presidentes = [
+let presidentes = [
     {
         "nombre": "Fujimori Fujimori Alberto",
         "periodo": "1990 - 2001",
@@ -76,33 +76,70 @@ const presidentes = [
     }
 ];
 
+function asignarPresidentes(){
+    const presidenteElement = document.getElementById("presidents");
+    let contenido = "";
+    presidentes.forEach(function(presidente) {    
+        let claseicon = "corrupto";
+        if (presidente.isCorrupto) {
+            claseicon = "corrupto";
+        } else {
+            claseicon = "no-corrupto";
+        }
+        let cantidadanios = presidente.anios_gobierno + " años";
+        if (presidente.anios_gobierno == 0) {
+            cantidadanios = "No goberno ni un año";
+        }
+        const template = `
+            <div class="presidente">
+                <div class="icon icon-${claseicon}"></div>
+                <div class="data">
+                    <h4>${presidente.nombre}</h4>
+                    <p>Goberno: ${presidente.periodo}</p>
+                </div>
+                <div class="gobierno">
+                    ${cantidadanios}
+                </div>
+            </div>
+        `;
+        contenido = contenido + template;
+    });
+    presidenteElement.innerHTML = contenido;
+}
 
-const presidenteElement = document.getElementById("presidents");
-let contenido = "";
-presidentes.forEach(function(presidente) {    
-    let claseicon = "corrupto";
-    if (presidente.isCorrupto) {
-        claseicon = "corrupto";
-    } else {
-        claseicon = "no-corrupto";
+asignarPresidentes();
+
+
+const boton = document.getElementById("sendPresidente");
+
+/* addEventListener para agregar un evento */
+/* CLICK */
+boton.addEventListener("click", function(){
+    //alert("ESTAS INGRESANDO UN NUEVO PRESIDENTE");
+    const nombre = document.getElementById("nombrePresidente").value;
+    const periodo = document.getElementById("periodoPresidente").value;
+    const isCorrupto = document.getElementById("isCorrupto").value;    
+    //transformacion de datos
+    //periodo : 2031 - 2034
+    //split = DIVIDE UN STRING EN UN ARRAY DEPENDIENDO DEL VALOR INGRESADO
+    const anioMayor = periodo.split(" - ")[1]; //2034
+    const anioMenor = periodo.split(" - ")[0]; //2031
+    const aniosGobernados = Number(anioMayor) - Number(anioMenor);
+    let isPresidenteCorrupto = true;
+    //aniosGobernados --> Number
+    if (isCorrupto == "NO") {
+        isPresidenteCorrupto = false;
     }
-    let cantidadanios = presidente.anios_gobierno + " años";
-    if (presidente.anios_gobierno == 0) {
-        cantidadanios = "No goberno ni un año";
-    }
-    const template = `
-        <div class="presidente">
-            <div class="icon icon-${claseicon}"></div>
-            <div class="data">
-                <h4>${presidente.nombre}</h4>
-                <p>Goberno: ${presidente.periodo}</p>
-            </div>
-            <div class="gobierno">
-                ${cantidadanios}
-            </div>
-        </div>
-    `;
-    contenido = contenido + template;
+    //PRINCIPIO SOLID RESPONSABILIDAD UNICA
+    //CREAR EL OBJETO. 
+    const newPresident = new Object();
+    newPresident.nombre = nombre;
+    newPresident.periodo = periodo;
+    newPresident.anios_gobierno = aniosGobernados;    
+    newPresident.isCorrupto = isPresidenteCorrupto;
+    //push para agregar al array
+    presidentes.push(newPresident);
+    alert("Has agregado un nuevo presidente");
+    //repetir la funcion
+    asignarPresidentes();
 });
-
-presidenteElement.innerHTML = contenido;

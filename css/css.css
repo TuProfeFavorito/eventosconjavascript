@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap');
+body {
+    font-family: "Kantumruy Pro", sans-serif;
+}
+
 .presidente {
     display: flex;
     align-items: center;
@@ -62,4 +67,32 @@
     font-size: 32px;
     font-weight: 700;
     padding-left: 20px;
+}
+
+section.formulario .btn {
+    background: #2ca7ef;
+    border: none;
+    color: white;
+    padding: 9px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border-bottom: solid 2px #1f88c5;
+}
+section.formulario input, section.formulario select {
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+section.formulario h4 {
+    margin: 0px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+section.formulario {
+    margin-bottom: 30px;
+    padding: 10px;
+    background: #f3ba99;
+    border-radius: 5px;
 }
